@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaDownloader", "MangaDownloader\MangaDownloader.csproj", "{28FB4CBB-847C-4CAD-A796-250CE25CB22E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28FB4CBB-847C-4CAD-A796-250CE25CB22E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28FB4CBB-847C-4CAD-A796-250CE25CB22E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28FB4CBB-847C-4CAD-A796-250CE25CB22E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28FB4CBB-847C-4CAD-A796-250CE25CB22E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B8B8980-2E62-4966-97EB-E46465ACA53D}
+	EndGlobalSection
+EndGlobal
