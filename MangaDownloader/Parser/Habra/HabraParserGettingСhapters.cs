@@ -18,6 +18,8 @@ namespace MangaDownloader.Parser.Habra
         const string ClassNameLink = "";
         const string LinkAttribute = "href";
 
+        const string prefix = "chapter";
+
 
 
         public Chapter[] Parser(IHtmlDocument document)
@@ -40,12 +42,14 @@ namespace MangaDownloader.Parser.Habra
 
             for(int i = 0; i< HtmlChapterLinks.Length; i++)
             {
+                string link = HtmlChapterLinks[i].GetAttribute(LinkAttribute);
+
                 Chapter chapter = new Chapter() {
                     Tom = Element[i].Tom,
                     chapter = Element[i].chapter,
                     Name = Names[i],
                     Date = ListDate[i],
-                    Link = HtmlChapterLinks[i].GetAttribute(LinkAttribute)
+                    Link = link.Substring(link.IndexOf(prefix)),
                 };
 
                 chapters[i] = chapter;

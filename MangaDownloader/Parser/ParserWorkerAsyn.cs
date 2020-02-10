@@ -1,5 +1,6 @@
 ﻿using AngleSharp.Html.Parser;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MangaDownloader.Parser
@@ -56,6 +57,12 @@ namespace MangaDownloader.Parser
         public void Start()
         {
             Worker();
+        }
+
+        public void StartAsyn()
+        {
+            Thread myThread = new Thread(new ThreadStart(Worker));
+            myThread.Start();
         }
 
         private async void Worker()

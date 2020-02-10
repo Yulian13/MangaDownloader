@@ -2,19 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using AngleSharp.Html.Dom;
+using MangaDownloader.Models;
 
 namespace MangaDownloader.Parser.Habra
 {
-    class HabraParserImg : IParser<List<string>>
+    class HabraParserImg : IParser<ImagesList>
     {
         const string Teg = "img";
         const string ClassName = "img-fluid page-image lazy-preload";
         const string Attribut = "data-src";
         const string AlternativeAttribut = "src";
 
+        Chapter Chapter;
 
-        public List<string> Parser(IHtmlDocument document)
+        public HabraParserImg(Chapter chapter)
         {
+            Chapter = chapter;
+        }
+
+        public ImagesList Parser(IHtmlDocument document)
+        {
+            
             var ListLink = new List<string>();
 
             var HtmlImgs = document.QuerySelectorAll(Teg).
@@ -29,7 +37,7 @@ namespace MangaDownloader.Parser.Habra
                 ListLink.Add(link);
             }
 
-            return ListLink;
+            return new ImagesList(Chapter, ListLink.ToArray());
         }
     }
 }
