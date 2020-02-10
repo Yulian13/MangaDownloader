@@ -86,7 +86,7 @@
     <Compile Include="Parser\HtmlLoader.cs" />
     <Compile Include="Parser\IParser.cs" />
     <Compile Include="Parser\IParserSettings.cs" />
-    <Compile Include="Parser\ParserWorkerAsyn.cs" />
+    <Compile Include="Parser\ParserWorker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
