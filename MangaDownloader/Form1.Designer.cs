@@ -45,6 +45,7 @@
             this.buttonDownload = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelIndicatorTom = new System.Windows.Forms.Label();
+            this.progressBarChapters = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -91,7 +92,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(517, 440);
+            this.dataGridView1.Size = new System.Drawing.Size(517, 442);
             this.dataGridView1.TabIndex = 2;
             // 
             // ColumnDownload
@@ -135,7 +136,7 @@
             this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.pictureBox1.Location = new System.Drawing.Point(13, 52);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(255, 469);
+            this.pictureBox1.Size = new System.Drawing.Size(255, 471);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
@@ -164,9 +165,10 @@
             // 
             this.progressBarToms.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarToms.Location = new System.Drawing.Point(149, 528);
+            this.progressBarToms.Location = new System.Drawing.Point(149, 541);
+            this.progressBarToms.Maximum = 0;
             this.progressBarToms.Name = "progressBarToms";
-            this.progressBarToms.Size = new System.Drawing.Size(561, 23);
+            this.progressBarToms.Size = new System.Drawing.Size(561, 12);
             this.progressBarToms.TabIndex = 7;
             // 
             // labelName
@@ -181,7 +183,7 @@
             // buttonDownload
             // 
             this.buttonDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDownload.Location = new System.Drawing.Point(716, 527);
+            this.buttonDownload.Location = new System.Drawing.Point(716, 529);
             this.buttonDownload.Name = "buttonDownload";
             this.buttonDownload.Size = new System.Drawing.Size(75, 24);
             this.buttonDownload.TabIndex = 6;
@@ -192,28 +194,39 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCancel.Location = new System.Drawing.Point(13, 527);
+            this.buttonCancel.Location = new System.Drawing.Point(13, 529);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 24);
             this.buttonCancel.TabIndex = 10;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // labelIndicatorChapter
+            // labelIndicatorTom
             // 
             this.labelIndicatorTom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelIndicatorTom.AutoSize = true;
-            this.labelIndicatorTom.Location = new System.Drawing.Point(94, 533);
-            this.labelIndicatorTom.Name = "labelIndicatorChapter";
+            this.labelIndicatorTom.Location = new System.Drawing.Point(94, 541);
+            this.labelIndicatorTom.Name = "labelIndicatorTom";
             this.labelIndicatorTom.Size = new System.Drawing.Size(35, 13);
             this.labelIndicatorTom.TabIndex = 11;
             this.labelIndicatorTom.Text = "label1";
+            // 
+            // progressBarChapters
+            // 
+            this.progressBarChapters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarChapters.Location = new System.Drawing.Point(149, 529);
+            this.progressBarChapters.Maximum = 0;
+            this.progressBarChapters.Name = "progressBarChapters";
+            this.progressBarChapters.Size = new System.Drawing.Size(561, 12);
+            this.progressBarChapters.TabIndex = 12;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 563);
+            this.ClientSize = new System.Drawing.Size(803, 565);
+            this.Controls.Add(this.progressBarChapters);
             this.Controls.Add(this.labelIndicatorTom);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.labelName);
@@ -254,6 +267,7 @@
         private System.Windows.Forms.Button buttonDownload;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelIndicatorTom;
+        private System.Windows.Forms.ProgressBar progressBarChapters;
     }
 }
 

@@ -43,6 +43,9 @@ namespace MangaDownloader
                     MessageBox.Show("Downloading is end");
 
                     progressBarToms.Value = 0;
+                    progressBarToms.Maximum = 0;
+                    progressBarChapters.Value = 0;
+                    progressBarChapters.Maximum = 0;
                     labelIndicatorTom.Text = "";
 
                     buttonDownload.Enabled = true;
@@ -158,6 +161,7 @@ namespace MangaDownloader
                 return;
 
             progressBarToms.Maximum = Chapters.Count;
+            labelIndicatorTom.Text = $"{progressBarToms.Value}/{progressBarToms.Maximum}";
 
             PathDownload = $"D:\\Anime\\Manga\\{Static.ToSafeFileName(labelName.Text)}";
 
@@ -187,16 +191,24 @@ namespace MangaDownloader
             MessageBox.Show("Error");
         }
 
-        private void Parser_OnNewData(object arg1, ImagesList ListLink)
+        private void Parser_OnNewData(object arg1, ImagesList listLink)
         {
-            string Path = $"{PathDownload}\\{ListLink.Tom}-{ListLink.Chapter} {Static.ToSafeFileName(ListLink.Name)}";
+            Invoke(new Action(() => {
+                progressBarChapters.Maximum += listLink.LinksImg.Length;
+            }));
+
+            string Path = $"{PathDownload}\\{listLink.Tom}-{listLink.Chapter} {Static.ToSafeFileName(listLink.Name)}";
 
             WebClient client = new WebClient();
             Directory.CreateDirectory(Path);
-            for (int i = 0; i<ListLink.LinksImg.Length; i++)
+            for (int i = 0; i<listLink.LinksImg.Length; i++)
             {
-                string name = String.Format("{1}-{2}-page{0:d2}", i, ListLink.Tom, ListLink.Chapter);
-                client.DownloadFile(ListLink.LinksImg[i], $"{Path}\\{name}.jpg");
+                string name = String.Format("{1}-{2}-page{0:d2}", i, listLink.Tom, listLink.Chapter);
+                client.DownloadFile(listLink.LinksImg[i], $"{Path}\\{name}.jpg");
+
+                Invoke(new Action(() => {
+                    progressBarChapters.Value++;
+                }));
             }
 
             Invoke(new Action(() => {
