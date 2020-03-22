@@ -39,7 +39,8 @@ namespace MangaDownloader.Models
                 .Replace("?", "")
                 .Replace("<", "")
                 .Replace(">", "")
-                .Replace("|", "");
+                .Replace("|", "")
+                .Replace("\n", "");
         }
     }
 }

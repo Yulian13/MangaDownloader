@@ -199,16 +199,19 @@ namespace MangaDownloader
 
             string Path = $"{PathDownload}\\{listLink.Tom}-{listLink.Chapter} {Static.ToSafeFileName(listLink.Name)}";
 
-            WebClient client = new WebClient();
-            Directory.CreateDirectory(Path);
-            for (int i = 0; i<listLink.LinksImg.Length; i++)
+            using (WebClient client = new WebClient())
             {
-                string name = String.Format("{1}-{2}-page{0:d2}", i, listLink.Tom, listLink.Chapter);
-                client.DownloadFile(listLink.LinksImg[i], $"{Path}\\{name}.jpg");
+                Directory.CreateDirectory(Path);
+                for (int i = 0; i<listLink.LinksImg.Length; i++)
+                {
+                    string name = String.Format("{1}-{2}-page{0:d2}", i, listLink.Tom, listLink.Chapter);
+                    client.DownloadFile(listLink.LinksImg[i], $"{Path}\\{name}.jpg");
 
-                Invoke(new Action(() => {
-                    progressBarChapters.Value++;
-                }));
+                    Invoke(new Action(() => {
+                        progressBarChapters.Value++;
+                    }));
+                }
+
             }
 
             Invoke(new Action(() => {
