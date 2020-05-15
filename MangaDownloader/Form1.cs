@@ -204,7 +204,7 @@ namespace MangaDownloader
                 Directory.CreateDirectory(Path);
                 for (int i = 0; i<listLink.LinksImg.Length; i++)
                 {
-                    string name = String.Format("{1}-{2}-page{0:d2}", i, listLink.Tom, listLink.Chapter);
+                    string name = String.Format("{1}-{2}-p{0:d2}", i, listLink.Tom, listLink.Chapter);
                     client.DownloadFile(listLink.LinksImg[i], $"{Path}\\{name}.jpg");
 
                     Invoke(new Action(() => {

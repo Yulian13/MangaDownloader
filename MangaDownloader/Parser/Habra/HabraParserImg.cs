@@ -9,7 +9,7 @@ namespace MangaDownloader.Parser.Habra
     class HabraParserImg : IParser<ImagesList>
     {
         const string Teg = "img";
-        const string ClassName = "img-fluid page-image lazy-preload";
+        const string ClassName = "page-image";
         const string Attribut = "data-src";
         const string AlternativeAttribut = "src";
 
@@ -22,11 +22,11 @@ namespace MangaDownloader.Parser.Habra
 
         public ImagesList Parser(IHtmlDocument document)
         {
-            
+
             var ListLink = new List<string>();
 
             var HtmlImgs = document.QuerySelectorAll(Teg).
-                Where(ele => ele.ClassName == ClassName).ToList();
+                Where(ele => ele.ClassName != null && ele.ClassName.Contains(ClassName)).ToList();
             
             foreach(var htmlImg in HtmlImgs)
             {
