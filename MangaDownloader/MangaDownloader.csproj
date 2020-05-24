@@ -76,6 +76,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form1.OtherFunk.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\ImagesList.cs" />
     <Compile Include="Parser\Habra\HabraParserGetMainImage.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="Parser\Habra\HabraParserImg.cs" />
     <Compile Include="Parser\Habra\HabraSettings.cs" />
     <Compile Include="Parser\HtmlLoader.cs" />
+    <Compile Include="Parser\ImageDownloader.cs" />
     <Compile Include="Parser\IParser.cs" />
     <Compile Include="Parser\IParserSettings.cs" />
     <Compile Include="Parser\ParserWorker.cs" />

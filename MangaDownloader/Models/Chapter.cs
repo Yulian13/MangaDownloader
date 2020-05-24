@@ -6,9 +6,25 @@ using System.Threading.Tasks;
 
 namespace MangaDownloader.Models
 {
-    class Chapter
+    public class Chapter
     {
+        static public void RepeatCheck(List<Chapter> Chapters)
+        {
+            Chapter[] ArrChapter = Chapters.ToArray();
 
+            for(int i = 0; i<ArrChapter.Length; i++)
+            {
+                for(int j = i+1; j < ArrChapter.Length; j++)
+                {
+                    if( ArrChapter[i].Tom == ArrChapter[j].Tom && 
+                        ArrChapter[i].chapter == ArrChapter[j].chapter &&
+                        ArrChapter[i].Name == ArrChapter[j].Name)
+                    {
+                        Chapters.Remove(ArrChapter[j]);
+                    }
+                }
+            }
+        }
 
         public string Tom { get; set; }
 

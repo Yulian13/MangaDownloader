@@ -3,21 +3,15 @@ using MangaDownloader.Parser;
 using MangaDownloader.Parser.Habra;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MangaDownloader
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, INeedFunctions
     {
-        bool Cheking {
+        bool ChekEnable {
             set
             {
                 buttonChecking.Enabled = value;
@@ -25,32 +19,36 @@ namespace MangaDownloader
             }
         }
 
-        bool Download {
-            set
-            {
-                if (!value){
-                    progressBarToms.Value++;
-                    labelIndicatorTom.Text = $"{progressBarToms.Value}/{progressBarToms.Maximum}";
-                }
+        bool Remove = false;
+        public void Download(bool value) {
+            if (!value){
+                progressBarToms.Value++;
+                labelIndicatorTom.Text = $"{progressBarToms.Value}/{progressBarToms.Maximum}";
+            }
 
-                if (value)
-                {
-                    buttonDownload.Enabled = false;
-                    buttonChecking.Enabled = false;
-                }
-                else if (progressBarToms.Value == progressBarToms.Maximum)
-                {
+            if (value)
+            {
+                buttonDownload.Enabled = false;
+                buttonChecking.Enabled = false;
+            }
+            else if (progressBarToms.Value == progressBarToms.Maximum)
+            {
+                if(!Remove)
                     MessageBox.Show("Downloading is end");
 
-                    progressBarToms.Value = 0;
-                    progressBarToms.Maximum = 0;
-                    progressBarChapters.Value = 0;
-                    progressBarChapters.Maximum = 0;
-                    labelIndicatorTom.Text = "";
+                progressBarToms.Value = 0;
+                progressBarToms.Maximum = 0;
+                progressBarChapters.Value = 0;
+                progressBarChapters.Maximum = 0;
+                labelIndicatorTom.Text = "";
 
-                    buttonDownload.Enabled = true;
-                    buttonChecking.Enabled = true;
-                }
+                buttonDownload.Enabled = true;
+                buttonChecking.Enabled = true;
+
+                if (Remove)
+                    Directory.Delete(PathDownload, true);
+
+                Remove = false;
             }
         }
 
@@ -69,7 +67,7 @@ namespace MangaDownloader
         private void buttonChecking_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            Cheking = false;
+            ChekEnable = false;
 
             ParserWorker<string[]> parserImg = new ParserWorker<string[]>(
                     new HabraParserGetMainImage(),
@@ -114,7 +112,7 @@ namespace MangaDownloader
                 dataGridView1.Rows.Add(false, Tom, chap, Name, Date, Link);
             }
 
-            Cheking = true;
+            ChekEnable = true;
         }
 
         private void Parser_OnNewDataImg(object arg1, string[] elements)
@@ -137,7 +135,9 @@ namespace MangaDownloader
         }
 
         #region Download
-        string PathDownload = "";
+        public string PathDownload { get; set; }
+
+        ImageDownloader downloader;
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
@@ -160,6 +160,8 @@ namespace MangaDownloader
             if (Chapters.Count == 0)
                 return;
 
+            Chapter.RepeatCheck(Chapters);
+
             progressBarToms.Maximum = Chapters.Count;
             labelIndicatorTom.Text = $"{progressBarToms.Value}/{progressBarToms.Maximum}";
 
@@ -167,59 +169,18 @@ namespace MangaDownloader
 
             Directory.CreateDirectory(PathDownload);
 
-            Download = true;
+            Download(true);
 
-            foreach (Chapter chap in Chapters)
-            {
-                ParserWorker<ImagesList> parser = new ParserWorker<ImagesList>(
-                    new HabraParserImg(chap),
-                    new HabraSettings(GetLink, chap.Link)
-                );
-                parser.OnNewData += Parser_OnNewData;
-                parser.OnError += Parser_OnErrorImgs;
-
-                parser.StartAsyn();
-            }
-
-        }
-
-        private void Parser_OnErrorImgs(object obj)
-        {
-            Invoke(new Action(() => {
-                Download = false;
-            }));
-            MessageBox.Show("Error");
-        }
-
-        private void Parser_OnNewData(object arg1, ImagesList listLink)
-        {
-            Invoke(new Action(() => {
-                progressBarChapters.Maximum += listLink.LinksImg.Length;
-            }));
-
-            string Path = $"{PathDownload}\\{listLink.Tom}-{listLink.Chapter} {Static.ToSafeFileName(listLink.Name)}";
-
-            using (WebClient client = new WebClient())
-            {
-                Directory.CreateDirectory(Path);
-                for (int i = 0; i<listLink.LinksImg.Length; i++)
-                {
-                    string name = String.Format("{1}-{2}-p{0:d2}", i, listLink.Tom, listLink.Chapter);
-                    client.DownloadFile(listLink.LinksImg[i], $"{Path}\\{name}.jpg");
-
-                    Invoke(new Action(() => {
-                        progressBarChapters.Value++;
-                    }));
-                }
-
-            }
-
-            Invoke(new Action(() => {
-                Download = false;
-            }));
-        }
+            downloader = new ImageDownloader(Chapters, GetLink, this);
+            downloader.Download();
+        }    
 
         #endregion
 
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            downloader.Stop();
+            Remove = true;
+        }
     }
 }
