@@ -47,6 +47,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AngleSharp, Version=0.13.0.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
       <HintPath>..\packages\AngleSharp.0.13.0\lib\net46\AngleSharp.dll</HintPath>
@@ -81,11 +101,12 @@
     </Compile>
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\ImagesList.cs" />
-    <Compile Include="Parser\Habra\HabraParserGetMainImage.cs" />
+    <Compile Include="Parser\Habra\GetMainImage\HabraParserGetMainImage1.cs" />
     <Compile Include="Models\Static.cs" />
-    <Compile Include="Parser\Habra\HabraParserGettingСhapters.cs" />
+    <Compile Include="Parser\Habra\GetChapters\HabraParserGettingСhapters1.cs" />
     <Compile Include="Parser\Habra\HabraParserImg.cs" />
     <Compile Include="Parser\Habra\HabraSettings.cs" />
+    <Compile Include="Parser\Habra\ListSites.cs" />
     <Compile Include="Parser\HtmlLoader.cs" />
     <Compile Include="Parser\ImageDownloader.cs" />
     <Compile Include="Parser\IParser.cs" />
@@ -131,5 +152,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

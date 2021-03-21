@@ -31,16 +31,16 @@ namespace MangaDownloader.Models
         public static string ToSafeFileName(this string s)
         {
             return s
-                .Replace("\\", "")
+                .Replace("\\","")
                 .Replace("/", "")
-                .Replace("\"", "")
+                .Replace("\"","")
                 .Replace("*", "")
                 .Replace(":", "")
                 .Replace("?", "")
                 .Replace("<", "")
                 .Replace(">", "")
                 .Replace("|", "")
-                .Replace("\n", "");
+                .Replace("\n","");
         }
     }
 }

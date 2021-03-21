@@ -11,6 +11,7 @@ namespace MangaDownloader.Parser.Habra
         const string Teg = "img";
         const string ClassName = "page-image";
         const string Attribut = "data-src";
+        const string FirstAlternativeAttribut = "data-alternative";
         const string AlternativeAttribut = "src";
 
         Chapter Chapter;
@@ -30,8 +31,10 @@ namespace MangaDownloader.Parser.Habra
             
             foreach(var htmlImg in HtmlImgs)
             {
-                string link = htmlImg.GetAttribute(Attribut);
-                if(link == null)
+                string link = htmlImg.GetAttribute(FirstAlternativeAttribut);
+                if (link == null)
+                    link = htmlImg.GetAttribute(Attribut);
+                if (link == null)
                     link = htmlImg.GetAttribute(AlternativeAttribut);
 
                 ListLink.Add(link);

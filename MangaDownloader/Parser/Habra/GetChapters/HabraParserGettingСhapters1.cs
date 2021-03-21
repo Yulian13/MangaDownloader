@@ -6,7 +6,7 @@ using MangaDownloader.Models;
 
 namespace MangaDownloader.Parser.Habra
 {
-    class HabraParserGettingСhapters : IParser<Chapter[]>
+    class HabraParserGettingСhapters1 : IParser<Chapter[]>
     {
         const string TegChapter = "span";
         const string ClassNameChapter = "chapter-title";

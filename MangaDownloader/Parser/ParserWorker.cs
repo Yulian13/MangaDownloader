@@ -44,14 +44,14 @@ namespace MangaDownloader.Parser
         public event Action<object, T> OnNewData;
         public event Action<object> OnError;
 
-        public ParserWorker(IParser<T> parser)
-        {
-            this.parser = parser;
-        }
-
         public ParserWorker(IParser<T> parser, IParserSettings parserSettings) : this(parser)
         {
             this.Settings = parserSettings;
+        }
+
+        public ParserWorker(IParser<T> parser)
+        {
+            this.parser = parser;
         }
 
         public void Start()

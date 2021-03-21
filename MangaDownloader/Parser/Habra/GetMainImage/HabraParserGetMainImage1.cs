@@ -5,7 +5,7 @@ using AngleSharp.Html.Dom;
 
 namespace MangaDownloader.Parser.Habra
 {
-    class HabraParserGetMainImage : IParser<string[]>
+    class HabraParserGetMainImage1 : IParser<string[]>
     {
         const string TegImg = "img";
         const string ClassNameImg = "img-fluid";

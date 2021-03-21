@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace MangaDownloader.Parser
 {
-    public interface INeedFunctions
+    public interface INeedFunctionsForLoad
     {
         void Download(bool value);
         void ProgressBarChaptersAddMaximum(int length);
@@ -22,11 +22,11 @@ namespace MangaDownloader.Parser
     {
         List<Chapter> Chapters;
         string Link;
-        INeedFunctions Functions;
+        INeedFunctionsForLoad Functions;
 
         bool Cancel = false;
 
-        public ImageDownloader(List<Chapter> chapters, string link, INeedFunctions Functions)
+        public ImageDownloader(List<Chapter> chapters, string link, INeedFunctionsForLoad Functions)
         {
             Chapters = chapters;
             Link = link;

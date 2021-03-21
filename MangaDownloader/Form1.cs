@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace MangaDownloader
 {
-    public partial class Form1 : Form, INeedFunctions
+    public partial class Form1 : Form, INeedFunctionsForLoad
     {
         bool ChekEnable {
             set
@@ -66,11 +66,16 @@ namespace MangaDownloader
 
         private void buttonChecking_Click(object sender, EventArgs e)
         {
+            var site = ListSites.GetSite(GetLink);
+
+            if (String.IsNullOrEmpty(site.Name))
+                return;
+
             dataGridView1.Rows.Clear();
             ChekEnable = false;
 
             ParserWorker<string[]> parserImg = new ParserWorker<string[]>(
-                    new HabraParserGetMainImage(),
+                    site.ParserGetMainImg,
                     new HabraSettings(GetLink, "")
                 );
             parserImg.OnNewData += Parser_OnNewDataImg;
@@ -78,7 +83,7 @@ namespace MangaDownloader
             parserImg.Start();
 
             ParserWorker<Chapter[]> parser = new ParserWorker<Chapter[]>(
-                    new HabraParserGettingСhapters(),
+                    site.ParserGetImgs,
                     new HabraSettings(GetLink, "chaptersList")
                 );
             parser.OnNewData += Parser_OnNewDataChapter;
