@@ -16,22 +16,13 @@ namespace MangaDownloader.Parser
 
         public IParser<T> Parser
         {
-            get
-            {
-                return parser;
-            }
-            set
-            {
-                parser = value;
-            }
+            get => parser;
+            set => parser = value;
         }
 
         public IParserSettings Settings
         {
-            get
-            {
-                return parserSettings;
-            }
+            get => parserSettings;
             set
             {
                 parserSettings = value;

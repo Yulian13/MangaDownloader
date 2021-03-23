@@ -9,7 +9,7 @@ namespace MangaDownloader.Parser.Habra
 {
     static class ListSites
     {
-        static readonly Site[] sites = { new SiteMangapoisk() };
+        static readonly Site[] sites = { new SiteMangapoisk(), new SiteMintmanga() };
 
         static public Site GetSite(string link)
         {
@@ -25,8 +25,8 @@ namespace MangaDownloader.Parser.Habra
     public abstract class Site
     {
         abstract public int ID { get; protected set; }
-        abstract public string Name { get; protected set; }
 
+        abstract public string Name { get; protected set; }
 
         abstract public IParser<string[]> CreatParserGetMainImg();
 
@@ -46,4 +46,17 @@ namespace MangaDownloader.Parser.Habra
 
         public override IParser<ImagesList> CreatParserGetImgs(Chapter chapter) => new HabraParserGetImgs1(chapter);
     }
+
+    public class SiteMintmanga : Site
+    {
+        public override int ID { get; protected set; } = 2;
+        public override string Name { get; protected set; } = "mintmanga.live";
+
+        public override IParser<string[]> CreatParserGetMainImg() => new HabraParserGetMainImage2();
+
+        public override IParser<Chapter[]> CreatParserGetChapters() => new HabraParserGettingСhapters2();
+
+        public override IParser<ImagesList> CreatParserGetImgs(Chapter chapter) => new HabraParserGetImgs2(chapter);
+    }
+
 }
