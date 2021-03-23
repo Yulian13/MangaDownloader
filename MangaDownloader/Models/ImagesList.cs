@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MangaDownloader.Models
 {
-    class ImagesList
+    public class ImagesList
     {
         public ImagesList(string tom, string chapter, string name, string[] linksImg)
         {

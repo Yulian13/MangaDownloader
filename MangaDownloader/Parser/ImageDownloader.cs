@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using static MangaDownloader.Parser.Habra.ListSites;
 
 namespace MangaDownloader.Parser
 {
@@ -23,14 +24,16 @@ namespace MangaDownloader.Parser
         List<Chapter> Chapters;
         string Link;
         INeedFunctionsForLoad Functions;
+        Site site;
 
         bool Cancel = false;
 
-        public ImageDownloader(List<Chapter> chapters, string link, INeedFunctionsForLoad Functions)
+        public ImageDownloader(List<Chapter> chapters, string link, INeedFunctionsForLoad Functions, Site site)
         {
             Chapters = chapters;
             Link = link;
             this.Functions = Functions;
+            this.site = site;
         }
 
         public void Download()
@@ -38,7 +41,7 @@ namespace MangaDownloader.Parser
             foreach (Chapter chap in Chapters)
             {
                 ParserWorker<ImagesList> parser = new ParserWorker<ImagesList>(
-                    new HabraParserImg(chap),
+                    site.CreatParserGetImgs(chap),
                     new HabraSettings(Link, chap.Link)
                 );
                 parser.OnNewData += Parser_OnNewData;

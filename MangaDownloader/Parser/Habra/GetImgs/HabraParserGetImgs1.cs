@@ -6,7 +6,7 @@ using MangaDownloader.Models;
 
 namespace MangaDownloader.Parser.Habra
 {
-    class HabraParserImg : IParser<ImagesList>
+    class HabraParserGetImgs1 : IParser<ImagesList>
     {
         const string Teg = "img";
         const string ClassName = "page-image";
@@ -16,7 +16,7 @@ namespace MangaDownloader.Parser.Habra
 
         Chapter Chapter;
 
-        public HabraParserImg(Chapter chapter)
+        public HabraParserGetImgs1(Chapter chapter)
         {
             Chapter = chapter;
         }

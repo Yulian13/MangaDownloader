@@ -101,10 +101,13 @@
     </Compile>
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\ImagesList.cs" />
+    <Compile Include="Parser\Habra\GetChapters\HabraParserGettingСhapters2.cs" />
+    <Compile Include="Parser\Habra\GetImgs\HabraParserGetImgs2.cs" />
     <Compile Include="Parser\Habra\GetMainImage\HabraParserGetMainImage1.cs" />
     <Compile Include="Models\Static.cs" />
     <Compile Include="Parser\Habra\GetChapters\HabraParserGettingСhapters1.cs" />
-    <Compile Include="Parser\Habra\HabraParserImg.cs" />
+    <Compile Include="Parser\Habra\GetMainImage\HabraParserGetMainImage2.cs" />
+    <Compile Include="Parser\Habra\GetImgs\HabraParserGetImgs1.cs" />
     <Compile Include="Parser\Habra\HabraSettings.cs" />
     <Compile Include="Parser\Habra\ListSites.cs" />
     <Compile Include="Parser\HtmlLoader.cs" />

@@ -9,23 +9,7 @@ namespace MangaDownloader.Parser.Habra
 {
     static class ListSites
     {
-        static readonly Site[] sites = { new Site(1, "mangapoisk.ru", new HabraParserGetMainImage1(), new HabraParserGettingСhapters1()) };
-        public struct Site
-        {
-            public Site(int id,string Name, IParser<string[]> ParserGetMainImg, IParser<Chapter[]> ParserGetImgs)
-            {
-                this.ID = id;
-                this.Name = Name;
-                this.ParserGetMainImg = ParserGetMainImg;
-                this.ParserGetImgs = ParserGetImgs;
-            }
-
-            public int ID;
-
-            public string Name;
-            public IParser<string[]> ParserGetMainImg;
-            public IParser<Chapter[]> ParserGetImgs;
-        }
+        static readonly Site[] sites = { new SiteMangapoisk() };
 
         static public Site GetSite(string link)
         {
@@ -35,7 +19,31 @@ namespace MangaDownloader.Parser.Habra
                     return sites[i];
             }
 
-            return new Site();
+            return null;
         }
+    }
+    public abstract class Site
+    {
+        abstract public int ID { get; protected set; }
+        abstract public string Name { get; protected set; }
+
+
+        abstract public IParser<string[]> CreatParserGetMainImg();
+
+        abstract public IParser<Chapter[]> CreatParserGetChapters();
+
+        abstract public IParser<ImagesList> CreatParserGetImgs(Chapter chapter);
+    }
+
+    public class SiteMangapoisk : Site
+    {
+        public override int ID { get; protected set; } = 1;
+        public override string Name { get; protected set; } = "mangapoisk.ru";
+
+        public override IParser<string[]> CreatParserGetMainImg() => new HabraParserGetMainImage1();
+
+        public override IParser<Chapter[]> CreatParserGetChapters() => new HabraParserGettingСhapters1();
+
+        public override IParser<ImagesList> CreatParserGetImgs(Chapter chapter) => new HabraParserGetImgs1(chapter);
     }
 }
