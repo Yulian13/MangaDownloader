@@ -28,6 +28,8 @@ namespace MangaDownloader.Parser.Habra
 
         abstract public string Name { get; protected set; }
 
+        abstract public string LinkToChapterList { get; protected set; }
+
         abstract public IParser<string[]> CreatParserGetMainImg();
 
         abstract public IParser<Chapter[]> CreatParserGetChapters();
@@ -39,6 +41,7 @@ namespace MangaDownloader.Parser.Habra
     {
         public override int ID { get; protected set; } = 1;
         public override string Name { get; protected set; } = "mangapoisk.ru";
+        public override string LinkToChapterList { get; protected set; } = "chaptersList";
 
         public override IParser<string[]> CreatParserGetMainImg() => new HabraParserGetMainImage1();
 
@@ -51,6 +54,7 @@ namespace MangaDownloader.Parser.Habra
     {
         public override int ID { get; protected set; } = 2;
         public override string Name { get; protected set; } = "mintmanga.live";
+        public override string LinkToChapterList { get; protected set; } = "";
 
         public override IParser<string[]> CreatParserGetMainImg() => new HabraParserGetMainImage2();
 

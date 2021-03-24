@@ -64,19 +64,19 @@ namespace MangaDownloader
             labelName.Text = "";
         }
 
-        Site site;
+        Site siteObject;
         private void buttonChecking_Click(object sender, EventArgs e)
         {
-            site = ListSites.GetSite(GetLink);
+            siteObject = ListSites.GetSite(GetLink);
 
-            if (site == null)
+            if (siteObject == null)
                 return;
 
             dataGridView1.Rows.Clear();
             ChekEnable = false;
 
             ParserWorker<string[]> parserImg = new ParserWorker<string[]>(
-                    site.CreatParserGetMainImg(),
+                    siteObject.CreatParserGetMainImg(),
                     new HabraSettings(GetLink, "")
                 );
             parserImg.OnNewData += Parser_OnNewDataImg;
@@ -84,8 +84,8 @@ namespace MangaDownloader
             parserImg.Start();
 
             ParserWorker<Chapter[]> parser = new ParserWorker<Chapter[]>(
-                    site.CreatParserGetChapters(),
-                    new HabraSettings(GetLink, "chaptersList")
+                    siteObject.CreatParserGetChapters(),
+                    new HabraSettings(GetLink, siteObject.LinkToChapterList)
                 );
             parser.OnNewData += Parser_OnNewDataChapter;
             parser.OnError += Parser_OnError;
@@ -177,7 +177,7 @@ namespace MangaDownloader
 
             Download(true);
 
-            downloader = new ImageDownloader(Chapters, GetLink, this, site);
+            downloader = new ImageDownloader(Chapters, GetLink, this, siteObject);
             downloader.Download();
         }    
 
