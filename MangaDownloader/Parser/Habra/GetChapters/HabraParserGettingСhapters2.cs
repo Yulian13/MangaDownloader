@@ -16,11 +16,13 @@ namespace MangaDownloader.Parser.Habra
         const string TegData = "td";
         const string ClassTegData = "hidden-xxs date";
 
+        const string MTR_Rrefix = @"?mtr=1";
+
         public Chapter[] Parser(IHtmlDocument document)
         {
             List<Chapter> ListChapters = document.QuerySelectorAll(TegChap)
                 .Where(ele => ele.ClassName != null && ele.ClassName == ClassTegChap)
-                .Select(ele => new Chapter(){ Name = ele.TextContent, Link = ele.GetAttribute(LinkAttrib) })
+                .Select(ele => new Chapter(){ Name = ele.TextContent, PrefixToChapter = ele.GetAttribute(LinkAttrib) })
                 .ToList();
 
             ProccesStringChapter(ListChapters);
@@ -54,14 +56,13 @@ namespace MangaDownloader.Parser.Habra
             {
                 string txt = a.Name.Trim();
 
-                // Заполняем поля Tom и Chapter
                 string TomChapt = new Regex(@"\d+ - \d+").Match(txt).Value;
 
                 if(TomChapt == "")
                 {
                     a.Tom = "";
                     a.chapter = "";
-                    a.Name = txt;
+                    a.Name = new Regex(@"\s+").Replace(txt, " ").Replace("\n","");
 
                     continue;
                 }
@@ -80,6 +81,8 @@ namespace MangaDownloader.Parser.Habra
                 {
                     a.Name = "";
                 }
+
+                a.PrefixToChapter += MTR_Rrefix;
             }
                
         }

@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using static MangaDownloader.Parser.Habra.ListSites;
+using static System.Net.WebRequestMethods;
 
 namespace MangaDownloader.Parser
 {
@@ -22,16 +24,14 @@ namespace MangaDownloader.Parser
     public class ImageDownloader
     {
         List<Chapter> Chapters;
-        string Link;
         INeedFunctionsForLoad Functions;
         Site site;
 
         bool Cancel = false;
 
-        public ImageDownloader(List<Chapter> chapters, string link, INeedFunctionsForLoad Functions, Site site)
+        public ImageDownloader(List<Chapter> chapters, INeedFunctionsForLoad Functions, Site site)
         {
             Chapters = chapters;
-            Link = link;
             this.Functions = Functions;
             this.site = site;
         }
@@ -42,7 +42,7 @@ namespace MangaDownloader.Parser
             {
                 ParserWorker<ImagesList> parser = new ParserWorker<ImagesList>(
                     site.CreatParserGetImgs(chap),
-                    new HabraSettings(Link, chap.Link)
+                    new HabraSettings("https://" + site.Name, chap.PrefixToChapter)
                 );
                 parser.OnNewData += Parser_OnNewData;
                 parser.OnError += Functions.Parser_OnErrorImgs;
@@ -56,11 +56,16 @@ namespace MangaDownloader.Parser
         {
             Functions.ProgressBarChaptersAddMaximum(listLink.LinksImg.Length);
 
-            string Path = $"{Functions.PathDownload}\\{listLink.Tom}-{listLink.Chapter} {Static.ToSafeFileName(listLink.Name)}";
+            string Path = $"{Functions.PathDownload}\\{listLink.Tom}-{listLink.Chapter}{Static.ToSafeFileName(listLink.Name)}";
 
             using (WebClient client = new WebClient())
             {
                 Directory.CreateDirectory(Path);
+                while (!Directory.Exists(Path))
+                {
+                    Thread.Sleep(100);
+                }
+
                 for (int i = 0; i < listLink.LinksImg.Length; i++)
                 {
                     if (Cancel)

@@ -113,7 +113,7 @@ namespace MangaDownloader
                 string chap = chapters[i].chapter;
                 string Name = chapters[i].Name;
                 string Date = chapters[i].Date;
-                string Link = chapters[i].Link;
+                string Link = chapters[i].PrefixToChapter;
 
                 dataGridView1.Rows.Add(false, Tom, chap, Name, Date, Link);
             }
@@ -157,7 +157,7 @@ namespace MangaDownloader
                         Tom = (string)rowView.Cells[ColumnTom.Index].Value,
                         chapter = (string)rowView.Cells[ColumnChapter.Index].Value,
                         Name = (string)rowView.Cells[ColumnName.Index].Value,
-                        Link = (string)rowView.Cells[ColumnLink.Index].Value
+                        PrefixToChapter = (string)rowView.Cells[ColumnLink.Index].Value
                     };
 
                     Chapters.Add(chapter);
@@ -177,7 +177,7 @@ namespace MangaDownloader
 
             Download(true);
 
-            downloader = new ImageDownloader(Chapters, GetLink, this, siteObject);
+            downloader = new ImageDownloader(Chapters, this, siteObject);
             downloader.Download();
         }    
 

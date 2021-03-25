@@ -34,6 +34,6 @@ namespace MangaDownloader.Models
 
         public string Date { get; set; }
 
-        public string Link { get; set; }
+        public string PrefixToChapter { get; set; }
     }
 }

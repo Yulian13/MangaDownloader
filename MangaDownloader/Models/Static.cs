@@ -30,7 +30,10 @@ namespace MangaDownloader.Models
 
         public static string ToSafeFileName(this string s)
         {
-            return s
+            if (s == "")
+                return s;
+
+            return " " + s
                 .Replace("\\","")
                 .Replace("/", "")
                 .Replace("\"","")

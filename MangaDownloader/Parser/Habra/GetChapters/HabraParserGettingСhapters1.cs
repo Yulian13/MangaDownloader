@@ -49,7 +49,7 @@ namespace MangaDownloader.Parser.Habra
                     chapter = Element[i].chapter,
                     Name = Names[i],
                     Date = ListDate[i],
-                    Link = link.Substring(link.IndexOf(prefix)),
+                    PrefixToChapter = link.Substring(1),
                 };
 
                 chapters[i] = chapter;
@@ -84,17 +84,7 @@ namespace MangaDownloader.Parser.Habra
 
             for (int i = 0; i < elements.Length; i++)
             {
-                string St = elements[i];
-
-                while (St.StartsWith(" ") || St.StartsWith("\n"))
-                {
-                    St = St.Remove(0, 1);
-                }
-                while (St.EndsWith(" ") || St.EndsWith("\n"))
-                {
-                    St = St.Remove(St.Length - 1, 1);
-                }
-                list[i] = St;
+                list[i] = list[i].Trim();
             }
             return list;
         }
@@ -135,7 +125,10 @@ namespace MangaDownloader.Parser.Habra
                 list[i] = elements[i].TextContent.Replace(DeleteElements[i].TextContent, "");
             }
 
-            list = TransformString(list);
+            for (int i = 0; i < elements.Length; i++)
+            {
+                list[i] = list[i].Trim();
+            }
 
             return list;
         } 
