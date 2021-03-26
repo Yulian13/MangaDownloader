@@ -38,6 +38,7 @@ namespace MangaDownloader.Parser
 
         public void Download()
         {
+
             foreach (Chapter chap in Chapters)
             {
                 ParserWorker<ImagesList> parser = new ParserWorker<ImagesList>(
@@ -61,11 +62,6 @@ namespace MangaDownloader.Parser
             using (WebClient client = new WebClient())
             {
                 Directory.CreateDirectory(Path);
-                while (!Directory.Exists(Path))
-                {
-                    Thread.Sleep(100);
-                }
-
                 for (int i = 0; i < listLink.LinksImg.Length; i++)
                 {
                     if (Cancel)
