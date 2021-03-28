@@ -15,7 +15,7 @@ namespace MangaDownloader.Parser
             this.url = settings.BaseUrl;
         }
 
-        public async Task<string> GetSourceByPageId()
+        public async Task<string> GetSourceByUrl()
         {
             var response = await client.GetAsync(url);
             string sourse = null;

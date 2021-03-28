@@ -61,7 +61,7 @@ namespace MangaDownloader.Parser
             string sourse = null;
             try
             {
-                sourse = await loader.GetSourceByPageId();
+                sourse = await loader.GetSourceByUrl();
                 if (String.IsNullOrEmpty(sourse))
                     throw new Exception();
             }

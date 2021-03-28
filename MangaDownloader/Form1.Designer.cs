@@ -298,7 +298,7 @@
             this.Controls.Add(this.textBoxLink);
             this.MinimumSize = new System.Drawing.Size(460, 468);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Загрузчик контента";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
