@@ -50,6 +50,8 @@ namespace MangaDownloader.Parser.Habra
         public override IParser<ImagesList> CreatParserGetImgs(Chapter chapter) => new HabraParserGetImgs1(chapter);
     }
 
+
+    //Парсер еще не до конца протестирован, возможны ошибки
     public class SiteMintmanga : Site
     {
         public override int ID { get; protected set; } = 2;
